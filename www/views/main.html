@@ -1,0 +1,65 @@
+<div class="bar bar-header bar-positive">
+    <h1 class="title">Cars Data</h1>
+</div>
+<ion-content class="has-header">
+
+
+
+    <div class="row">
+        <div class="col col-10"></div>
+        <div class="col col-80">
+            <div class="list list-inset" style="overflow: visible">
+                <label class="item item-input ">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" placeholder="Search" ng-model="searchData.query">
+                </label>
+            </div>
+            <div class="row text-center">
+
+                <div class="col col-10"></div>
+                <div class="col col-50">
+                    <select ng-model="fieldName" style="width: 100%; height: 45px;">
+                        <option value="regNo">Reg. No.</option>
+                        <option value="engineNo">Engine No.</option>
+                        <option value="chasisNo">Chasis No.</option>
+                        <option value="cngNo">CNG No.</option>
+                    </select>
+
+                </div>
+                <div class="col col-30">
+                    <button class="button  button-dark" ng-click="searchRecords[fieldName]();">
+                        Search
+                    </button>
+                </div>
+                <div class="col col-10"></div>
+
+            </div>
+            <p class="text-center" style="color: red;">{{err}}</p>
+            <p class="text-center" ng-if="results.length > 0">{{results.length}}
+                <span ng-if="results.length==1">record</span>
+                <span ng-if="results.length > 1">records</span>
+                found</p>
+            <div class="card" ng-repeat="record in results track by $index" style="font-size: 16px; padding: 4px;">
+                <h3 class="text-center">Record {{$index+1}}</h3>
+                <div ng-repeat="(key, value) in record | orderBy: key" ng-class="{'searched-item':value==searchData.query}">
+                    <b>{{key}}</b> : {{value}}
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <div class="col col-10"></div>
+    </div>
+
+
+
+
+</ion-content>
+
+<div class="bar bar-footer bar-positive text-center">
+    <button class="button  button-assertive icon ion-android-sync icon-right" ng-click="updateDatabase();">
+        Update Database
+    </button>
+</div>
+
+
